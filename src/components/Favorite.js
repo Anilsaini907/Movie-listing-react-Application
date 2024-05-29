@@ -10,13 +10,11 @@ import React, { useEffect, useState } from 'react'
     },[])
       
     const handleClick = (id) => {
-      console.log(id);
-      const updatedFavorites =  favorites.splice(id, 1);
-      setFavorites(updatedFavorites);
-      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+      const newArray = favorites.filter((item, index) => index !== id);
+      setFavorites(newArray); 
+       localStorage.setItem('favorites', JSON.stringify(newArray));
     };
 
-   
   return (
     <div className='mb-2' style={{border:'1px solid grey'}}>
 <ol>
