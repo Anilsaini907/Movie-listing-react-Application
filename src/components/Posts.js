@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 
 
@@ -12,11 +12,11 @@ const Posts = ({ posts, loading , addFavorite }) => {
       <div className="row">
         {posts.map((post) => {
           return (
-            <div className="col-md-4 mb-4" key={post.id} >
+            <div className="col-md-4 mb-4" >
               <div className="card">
                 <div className="card-body" style={{height: '250px'}}>
                   <div className="embed-responsive embed-responsive-16by9">
-                    <iframe
+                    <iframe key={post.id} 
                       className="embed-responsive-item"
                       src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
                       allowfullscreen

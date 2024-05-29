@@ -1,10 +1,11 @@
-import React ,{useState,useEffect,useMemo}from 'react';
+import React ,{useState,useEffect}from 'react';
 import axios from 'axios';
 import './App.css';
 import Posts  from './components/Posts';
 import Pagination from './components/Pagination';
 import SearchBar from './components/Search';
-import { Favorite } from './components/Favorite';
+import Favorite from './components/Favorite';
+import Filter  from './components/Filter';
 
 function App() {
   const [posts,setPosts]=useState([]);
@@ -16,7 +17,6 @@ function App() {
 
   useEffect(()=>{
     const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
     setFavorites(storedFavorites);
     const fetchPosts = async ()=>{
       setLoading(true);
@@ -32,6 +32,7 @@ function App() {
     const updatedFavorites = [...favorites, post];
     setFavorites(updatedFavorites);
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+    window.location.reload();
   };
  
   //get current post
@@ -55,8 +56,17 @@ function App() {
   return (
     <div className="App row">
   <div className="col-md-8">
+
+  <div className="row">
+  <div className="col-md-3">
+  <h1 className='text-primary mt-3'>Filters</h1>
+  <Filter />
+    </div>
+    <div className="col-md-6">
     <SearchBar searchQuery={searchQuery} handleChange={handleChange}/>
-      <h1 className='text-primary mb-3 mt-3'>Movies</h1>
+    </div>
+  </div> 
+    <h1 className='text-primary mb-3 mt-3'>Movies</h1>
      <div className=''>
      <Posts posts={
       searchQuery ? filteredPosts:currentPosts
